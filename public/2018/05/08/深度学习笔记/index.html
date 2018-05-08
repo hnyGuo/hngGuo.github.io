@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="深度学习,MXNet,PyTorch," />
 
 
 
@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="欢迎来到我的菜园。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="归去来兮辞">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="2017-09-231.GPU选购指南    计算能力:32位浮点计算能力    内存大小:至少4G    内存带宽:要足够才能发挥计算能力    机箱要大一点，散热要好，电源负荷要够 个人用户考虑GTX系列，1080ti性价比较高，资金够就Titan Xp，要追求性能等下一代Volta 2.gluon API    nn.Block主要提供    存储参数    描述forward如何执行">
+<meta name="keywords" content="深度学习,MXNet,PyTorch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习笔记">
+<meta property="og:url" content="http://yoursite.com/2018/05/08/深度学习笔记/index.html">
 <meta property="og:site_name" content="归去来兮辞">
-<meta property="og:description" content="欢迎来到我的菜园。">
+<meta property="og:description" content="2017-09-231.GPU选购指南    计算能力:32位浮点计算能力    内存大小:至少4G    内存带宽:要足够才能发挥计算能力    机箱要大一点，散热要好，电源负荷要够 个人用户考虑GTX系列，1080ti性价比较高，资金够就Titan Xp，要追求性能等下一代Volta 2.gluon API    nn.Block主要提供    存储参数    描述forward如何执行">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-08T15:56:44.245Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="归去来兮辞">
-<meta name="twitter:description" content="欢迎来到我的菜园。">
+<meta name="twitter:title" content="深度学习笔记">
+<meta name="twitter:description" content="2017-09-231.GPU选购指南    计算能力:32位浮点计算能力    内存大小:至少4G    内存带宽:要足够才能发挥计算能力    机箱要大一点，散热要好，电源负荷要够 个人用户考虑GTX系列，1080ti性价比较高，资金够就Titan Xp，要追求性能等下一代Volta 2.gluon API    nn.Block主要提供    存储参数    描述forward如何执行">
 
 
 
@@ -118,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/08/深度学习笔记/"/>
 
 
 
 
 
-  <title>归去来兮辞</title>
+  <title>深度学习笔记 | 归去来兮辞</title>
   
 
 
@@ -143,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/hnyGuo" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
@@ -238,9 +239,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -270,9 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/08/深度学习笔记/" itemprop="url">深度学习笔记</a></h1>
+          <h1 class="post-title" itemprop="name headline">深度学习笔记</h1>
         
 
         <div class="post-meta">
@@ -375,9 +374,7 @@
       
 
       
-        
-          
-            <p>2017-09-23<br>1.GPU选购指南<br>    计算能力:32位浮点计算能力<br>    内存大小:至少4G<br>    内存带宽:要足够才能发挥计算能力<br>    机箱要大一点，散热要好，电源负荷要够</p>
+        <p>2017-09-23<br>1.GPU选购指南<br>    计算能力:32位浮点计算能力<br>    内存大小:至少4G<br>    内存带宽:要足够才能发挥计算能力<br>    机箱要大一点，散热要好，电源负荷要够</p>
 <pre><code>个人用户考虑GTX系列，1080ti性价比较高，资金够就Titan Xp，要追求性能等下一代Volta
 </code></pre><p>2.gluon API<br>    nn.Block主要提供<br>    存储参数<br>    描述forward如何执行<br>    自动求导</p>
 <pre><code>super()函数：子类在init的时候先调用父类的init.
@@ -530,8 +527,6 @@ Optimization
 <p>如果想从soumith源安装或更新pytorch，需要挂代理。<br>在Pi系统上挂代理的方法：<br>$ export http_proxy=<a href="http://proxy.pi.sjtu.edu.cn:3004/" target="_blank" rel="noopener">http://proxy.pi.sjtu.edu.cn:3004/</a><br>$ export https_proxy=<a href="http://proxy.pi.sjtu.edu.cn:3004/" target="_blank" rel="noopener">http://proxy.pi.sjtu.edu.cn:3004/</a></p>
 <p>更新pytorch的方法：<br>$ conda update -n pytorch pytorch torchvision -c soumith</p>
 
-          
-        
       
     </div>
     
@@ -546,372 +541,40 @@ Optimization
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/06/图南为可料/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HENG GUO">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="归去来兮辞">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/06/图南为可料/" itemprop="url">图南未可料</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T21:54:20+08:00">
-                2018-05-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/实习/" itemprop="url" rel="index">
-                    <span itemprop="name">实习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
           
-
+            <a href="/tags/MXNet/" rel="tag"># MXNet</a>
           
-            
+            <a href="/tags/PyTorch/" rel="tag"># PyTorch</a>
           
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,277
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <h2 id="上一站-上海"><a href="#上一站-上海" class="headerlink" title="上一站 上海"></a>上一站 上海</h2><p>预约了5月3号入职，公司安排的报道时间是早上，中转酒店只有报道之后才能入住，心想着如果提前一天赶到深圳还得自己找酒店，就干脆买了一张过夜的硬卧车票。离开上海之前和实验室同学一起在校园里转了转，拖鞋门、思源湖、撷樱园、致远游泳馆…这个待了快六年的地方，有太多的回忆，真想再多看看，故意放慢脚步，漫无目的地走着，说着有的没的。</p>
-<p>5月2号走之前和少数人进行了告别，这只是我自己的一个选择，在我认为正确的时间做了正确的事情，因此并不希望大张旗鼓轰轰烈烈，也并不希望我的决定影响到其他人。我选择安静一点，孤身一人走向下一站。</p>
-<p>到达上海南站时距离火车出发仅有十多分钟，匆匆忙忙登上车厢找到自己的位置，旁边是一个老人带着一个小孩。可想而知，接下来的旅途充斥着小孩的哭闹声以及老人哄小孩时惯用的左一句宝宝右一句宝宝。夜里，可能是因为第二天就要入职的缘故，很是兴奋，同时，那种未来的不确定性又让我有些许不安。隔壁床的小孩时不时传出两声哭叫。一夜未眠。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/06/图南为可料/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/06/图南为可料/" rel="next" title="图南未可料">
+                <i class="fa fa-chevron-left"></i> 图南未可料
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/06/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HENG GUO">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="归去来兮辞">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/06/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T01:33:28+08:00">
-                2018-05-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  712
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>我的第一篇个人博客，首先记录下搭建过程中碰到的问题。</p>
-<h2 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h2><p>使用Github + Hexo的方式，首先需要安装Git以及Node.js，之后通过npm install来安装hexo，安装过程中会超时或者报错，是公司内网设置的问题。可在内部论坛上找到解决办法。</p>
-<h2 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h2><p>Hexo默认情况下会解析所有md文件，包括README.md。要想保留这个文件，可以将其放在source文件夹下，然后在站点配置文件中将skip_render关键字后的参数设置为README.md。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/06/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -921,10 +584,11 @@ Optimization
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -932,6 +596,10 @@ Optimization
 
 
           
+
+  
+
+
 
         </div>
         
@@ -1188,6 +856,10 @@ Optimization
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
