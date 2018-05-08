@@ -338,7 +338,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,074
+                  3,078
                 </span>
               
 
@@ -376,161 +376,15 @@
 
       
         
-          
-            <p>2017-09-23<br>1.GPU选购指南<br>    计算能力:32位浮点计算能力<br>    内存大小:至少4G<br>    内存带宽:要足够才能发挥计算能力<br>    机箱要大一点，散热要好，电源负荷要够</p>
-<pre><code>个人用户考虑GTX系列，1080ti性价比较高，资金够就Titan Xp，要追求性能等下一代Volta
-</code></pre><p>2.gluon API<br>    nn.Block主要提供<br>    存储参数<br>    描述forward如何执行<br>    自动求导</p>
-<pre><code>super()函数：子类在init的时候先调用父类的init.
-
-延后初始化
-
-自定义层 需要给input的维数
-</code></pre><p>3.dropout<br>    在第二章监督学习里面</p>
-<p>4.AlexNet</p>
-<p>5.VGG<br>    都用3x3的kernel</p>
-<p>2017-10-14<br>1.Batch Normalization<br>    加埃普西隆的目的是防止分母出现零<br>    伽马和贝塔的意义是什么<br>    BN的意义就是收敛更快 LR可以取大一点</p>
-<p>2.NiN<br>    去掉了全连接</p>
-<p>3.GoogleNet<br>    Inception(这个名字受电影的影响hhh) 4条线路使得网络可以做精细的操作<br>    MaxPool2D的stride默认为2</p>
-<p>4.ResNet<br>    follow VGG的思路，加深网络同时解决了梯度衰减</p>
-<p>5.DenseNet<br>    对ResNet的改进，用Concat替代了加法运算<br>    为了解决channels爆炸的问题使用了过渡块(transition block)</p>
-<p>6.图像增强</p>
-<pre><code>#以0.5的概率做翻转
-aug = image.HorizontalFlipAug(.5)
-#随机裁剪一个200*200的区域
-aug = image.Random([200,200])
-#随机裁剪，要求保留至少0.1的区域，随机长款在.5和2之间，最后将结果resize到200*200
-aug = image.RandomSizedCropAug((200,200),.1,(.5,2))
-#随机将亮度增加或者减小在0-50%间的一个量
-aug = image.BrightnessJitterAug(.5)
-#随机色调变化
-aug = image.HueJitterAug(.5)
-</code></pre><p>2017-10-21<br>1.GLuon高级<br>(1)Hybridize 提供两倍加速<br>    可以取得命令式编程的方便性和符号式编程的速度。使用nn.HybridSequential()定义的网络依然可以按照命令式的方式执行，但是执行net.hybridize()这句之后，网络就按符号式执行，速度会提升很多。<br>    只有继承自HybridBlock的层才会被优化，HybridSequential和Gluon提供的层都是它的子类。如果一个层只是继承自Block，MXNet将跳过优化。<br>    MXNet有一个符号式的API(symbol)和命令式的API(ndarray).这两个接口里面的函数基本是一致的。<br>    系统会根据输入来决定F是使用symbol还是ndarray。<br>    第一次执行net(x)的时候，系统会先将输入替换成symbol来构建符号式的程序，之后运行的时候系统将不再访问Python的代码，而是直接在C++后端执行这个符号式程序，这是Hybridize后变快的原因。但这也丧失了程序的灵活性，因为python代码只执行一次，而且是符号式的执行，想要使用print来调试就不太方便了。<br>    ‘’’’’’’’’’’’’’’’’’’’’’’’’’’’<br>    from mxnet import sym<br>    x = sym.var(‘data’)<br>    y = net(x)<br>    print(y.tojson())<br>    ‘’’’’’’’’’’’’’’’’’’’’’’’’’’’<br>    可以看到json格式的y,可以通过export()来保存程序到硬盘。它之后不仅可以被Python，也可以用其他语言来读取。<br>    建议：在调试阶段不要调用net.hybridize(),因为这样可以方便调试，最后跑大数据或者要部署的时候在net.hybridize()。<br>    本质上来说调用net.hybridize()就把网络静态化了。</p>
-<p>(2)lazy-evaluation<br>    MXNet支持Python、Scala、R、C++等前段。不管使用什么前端，MXNet的程序执行主要都在C++后端。前端只是把程序传给后端，后端有自己的线程来不断的收集任务，构造计算图，优化并执行。<br>    任何方法将内容从NDArray搬运到其他不支持延迟执行的数据结构里都会触发等待，例如asnumpy(),asscalar()<br>    延后执行会占用空间，用空间换时间</p>
-<p>(3)auto-parallelism<br>      通常一个运算符，例如+或者dot，会用掉一个计算设备上所有计算资源，dot同样用到所有CPU的核(即使是多个CPU)和单GPU上所有线程因此在单设备上并行运行多个运算符可能效果并不明显。自动并行主要的用途是多设备的并行计算和计算与通讯的并行。<br>      计算与通讯可以在一定程度上做并行。比如一边在GPU上做计算，一边往CPU复制结果。<br>       不等待也会保证结果一致<br>(4)multi-gpu<br>    gpu温度在80度以下都Ok,长期保持90度左右就可能烧掉<br>    Python没有多线程只有多进程<br>    使用多个GPU但不改变其他参数会得到跟单GPU一致的结果(单数据是随机顺序，所以会有细微区别)<br>    但在多GPU时，通常需要增加批量大小使得每个GPU能得到足够多的任务来保证性能。但一个大的批量大小可能使得收敛变慢，这时候的一个常用做法是将学习率增大一些。<br>    使用多GPU时，每个GPU会维护一套参数。<br>    多GPU之间复制梯度求和并广播在gluon.Trainer里面会被默认执行。<br>(5)optimization<br>    梯度下降、随机梯度下降、动量法</p>
-<p>2017-10-25<br>Introduction to CNN for visual recognition<br>    David Marr,1970s<br>    Generalized Cylinder,1979<br>    David Lowe,1987<br>    Normalized Cut(Shi &amp; Malik,1997)<br>    Face Detection(Viola &amp; Jones 2001) with AdaBoost<br>    SIFT(David Lowe,1999) HoG(Dalal &amp; Triggs,2005) Deformable Part Model(Felzenswalb,2009)<br>    PASCAL Visual Object Challenge(20 object categories)<br>    ImageNet(22k categories 14M images)<br>    LeCun et al.(1998)——&gt;Alex et al.(2012)</p>
-<pre><code>Data-Driven Approch 
-(1) Collect a dataset of images and labels
-(2) Use Machine Learning to train a classifier
-(3) Evaluate the classifier on new images
-
-curse of dimensionality 维数灾难
-</code></pre><p>2017-10-26<br>Loss Functions and Optimization<br>    Hinge Loss<br>        hinge(折叶，转折点)<br>        Threshold at zero max(0,-) function is often called the hinge loss. 函数图像就像一片门缝上的折叶一样。<br>        课程中使用的formulation follows the Weston and Watkins 1999 version.<br>    One vs All<br>    Structured SVM<br>    Softmax</p>
-<pre><code>L2 Regularization(Weight Decay) 在贝叶斯统计的角度来看，就是假设参数W服从高斯分布这个先验，然后通过极大似然法就可以推导出L2 Norm的形式。
-Softmax Classifier(Multinomial Logistic Regression)
-</code></pre><p>Introduction to Neural Networks<br>    Chain Rule &amp; Backpropagation<br>    Be very careful with your brain analogies(类比)!<br>    Activation functions: Sigmoid tanh ReLU Leaky-ReLU Maxout ELU</p>
-<p>Convolutional Neural Networks<br>    Bp was invented in 1986 by Rumelhart et al.<br>    First strong results:</p>
-<pre><code>    - Acoustic Modeling using Deep Belief Networks. Abdel-rahman Mohamed, G Hinton,2010
-    - Context-Dependent Pre-trained Deep Neural Networks for Large Vocabulary Speech Recognition. George Dahl,et al. 2012
-    - Imagenet classification with deep convolutional neural networks. Alex, G Hinton,2012 
-
-Why we call the layer convolutional because it is related to convolution of two signals.
-Output size = (N-F)/stride + 1
-zero-padding:maintain the same size 
-Pooling layer:
-    - making the representations smaller and more manageable
-    - operates over each activation map independently
-</code></pre><p>Training Neural Networks I<br>    Activation Functions<br>        Sigmoid(x):  [0,1]<br>        3 problems:</p>
-<pre><code>        - Saturated neurons &apos;kill&apos; the gradients
-        - Sigmoid outputs are not zero-centered
-        - exp() is a bit compute expensive
-    tanh(x):     [-1,1]
-        - zero-centered
-        - Saturated neurons still &apos;kill&apos; the gradients
-    ReLU:
-        - Does not saturate(in + region)
-        - Very computationally efficient
-        - Converges mush faster than sigmoid/tanh in practice(e.g. 6x)
-        - Actually more biologically plausible than sigmoid
-    problems:
-         - Not zero-centered output
-         - An annoyance
-Initialization
-    Xavier init 2010
-    He init 2015
-Batch Normalization
-    - Improves gradient flow through the network
-    - Allows higher learning rates
-    - Reduces the strong dependence on initialization
-    - Acts as a form of regularization in a funny way, and slightly reduces the need for dropout maybe.
-</code></pre><p>2017-10-27<br>Training Neural Networks II<br>    Fancier optimization</p>
-<pre><code>    - SGD + Momentum
-    - Nesterov Momentum(相比于标准动量法，此方法减轻了overshot)
-    - AdaGrad(NN中一般不怎么用)
-    - RMSProp(改进的AdaGrad)
-    - Adam(结合了SGD Momentum &amp; RMSProp;full form unbias estimate) beta1 = 0.9 beta2 = 0.999 lr = 1e-3 or 5e-4 is a great starting point for many models!
-    - L-BFGS(work not so well)
-Learning rate decay
-    - step decay
-    - exponential decay
-    - 1/t decay
-Regularization
-    - Dropout
-    - Batch Normalization
-    - Data augmentation
-    - DropConnect
-    - Fractional Max Pooling
-    - Stochastic Depth
-Transfer Learning
-    - Find a very large dataset that has similar data, train a big ConvNet there
-    - Transfer learn to your dataset
-</code></pre><p>Deep Learning Software<br>    Tensorflow<br>    Theano<br>    Torch(Lua)<br>    PyTorch(Python)<br>    Caffe<br>    Dynamic Graph Applications</p>
-<pre><code>- Recurrent networks
-- Recursive networks
-- Modular Networks
-</code></pre><p>CNN Architectures<br>    AlexNet<br>    ZFNet(Improved hyperparameters over AlexNet)<br>    VGG GoogleNet<br>    ResNet<br>    ResNet-V2<br>    ResNeXt<br>    Stochastic Depth(based on ResNet)<br>    FractalNet(不规则网络)<br>    DenseNet(感觉比FractalNet更极致)<br>    SqueezeNet(压缩网络，模型很小效率很高)</p>
-<p>2017-10-28<br>    Fine-Tuning<br>        下载下来的预训练模型默认是在CPU上，所以要reset_ctx到GPU<br>    EMA(Exponential Moving Average)<br>    Adagrad(learning rate不断减小，梯度大的方向减小的快)<br>    RMSProp(指数加权移动平均梯度的平方，相当于Adagrad中的s不再累积，RMS=RootMeanSquare,这篇Paper没有发表)<br>    Adadelta(两个EMA,没有了learning rate)<br>    Adam(SGD Momentum + RMSProp)<br>    EMA冷启动问题,需要修正偏差，随着时间的推移，修正越来越小</p>
-<p>2017-10-29<br>Detection and Segmentation<br>    Semantic Segmentation</p>
-<pre><code>    - Label each pixel in the image with a category label
-    - Don&apos;t differentiate instances, only care about pixels
-
-    Semantic Segmentation Idea:
-        - Sliding Window(Computational expensive)
-        - Fully Convolutional(classify every pixel concurrently, downsampling and upsampling(Unpooling、Transpose Convolution) in practice)
-Classification + Localization(single object)
-    - Treat localization as a regression problem
-Object Detection(multi-object)
-    - Sliding Window(brute)
-    - Region Proposals
-        - R-CNN
-        - SPP-Net
-        - Fast R-CNN
-        - Faster R-CNN
-        - R-FCN
-    - Detection without Proposals
-        - YOLO
-        - SSD
-Instance Segmentation
-    - Mask R-CNN(object detection &amp; pose estimation &amp; instance segmentation) unifies everything!!! close to real time 5fps on GPU
-</code></pre><p>Visualizing and Understanding ConvNets<br>    t-SNE<br>    Saliency Maps:Segmentation without supervision<br>    Neural Texture Synthesis<br>    Neural Style Transfer<br>    Fast Style Transfer</p>
-<p>Efficient Methods and Hardware for Deep Learning<br>    Hardware</p>
-<pre><code>    - General Purpose
-        - CPU
-        - GPU
-    - Specialized HW
-        - FPGA
-        - ASIC(Application Specific Integrated Circuit) e.g. TPU
-Speedup of Winograd Convolution(2.25x speedup theoretically)
-    Nvidia has implemented winograd convolution algorithm in cuDNN 5
-EIE(Efficient Inference Engine)
-DSD(DSD Model Zoo: https://songhan.github.io/DSD)
-</code></pre><p>2017-10-30<br>    Transpose Convolution</p>
-<pre><code>    - 本质上还是卷积，举个栗子，为了将一个2x2的图片upsample到4x4，可以通过zero-padding然后再做direct convolution，
-    但这种做法效率很低，所以还是先按正常做法将kernel(kernel_size=3)写成矩阵形式，这个时候维度是16x4，就是说在正常情况下，
-    3x3的卷积核是将一个16维的向量映射成4维，那么在转置卷积中，就是将这个16x4的核矩阵转置，然后前乘一个4维向量，这样就可以实现升维。转置卷积中的核也是通过学习得到的，这点很重要，所以转置卷积其实本质上也就是卷积，特别之处就在于正常卷积一般是降维，转置卷积是升维。（http://deeplearning.net/software/theano_versions/dev/tutorial/conv_arithmetic.html#transposed-convolution-arithmetic）
-Xavier Initialization
-He Initialization
-Fine Tuning
-Optimization
-</code></pre><p>2017-11-3<br>    在Batch Normalization的加持下，Xavier Initialization还是He Initialization都可以了，所以现在一般用Xavier就OK。</p>
-<p>2017-11-4<br>MXNet ndarray小知识：<br>    z = nd.zeros_like(x)<br>    z[:] = x + y<br>    这种slice notation的作用就在于可以将运算结果存储在指定变量位置，如果这里是z = x + y,输出id(z)，就会发现位置变了。<br>    对于那些希望使用inplace操作的变量，在MXNet中有两种方式：<br>    (1) By using slice notation x[:] = x op y<br>    (2) By using the op-equals operators like +=   (x += y)</p>
-<p>2017-12-18<br>MCMC(Markov Chain Monte Carlo)<br>    目的是在一个分布不方便直接采样的情况下，通过马尔科夫链的平稳收敛性获得真实分布的采样。这里面利用了一个马尔科夫链在多步迭代之后会收敛到一个平稳分布的特性，通过假设最后收敛的分布是真实分布来构造状态转移矩阵和接受概率等信息，迭代多次后得到的分布就是真实分布。MCMC的方法有很多种，包括Metropolis-Hastings sampling、 Gibbs Sampling等。<br>Variational Bayes<br>    两个目的：<br>    1.提供未观测到的变量的后验概率的解析近似，以便利用这些变量进行统计推断；<br>    2.推导出已观测到的变量的边际概率的下界。<br>    对于第一个目的，VB是MCMC之外的另一个选择，区别在于MCMC可以给出后验的数值近似，VB可以给出一个局部最优的解析近似解。</p>
-<p>2018-1-9<br>Windows下配置LaTeX环境:<br>MikTex + ActivePerl + Atom</p>
-<p>Atom安装的插件可以参考网页搜索结果，有一个最主要的插件是Atom+Latex，可以实现从PDF到Latex的反向搜索，但需要synctex.exe和kpathseaxxx.dll这两个文件。这两个文件是TexLive自带的，如果先前安装的Latex引擎是MikTex，只需要将这两个文件复制到对应文件夹..\MiKTeX 2.9\miktex\bin\x64</p>
-<p>2018-1-18<br>如何在一个conda的env中安装pytorch<br>$ conda create -n pytorch python=3.6 (首先创建一个环境)<br>$ conda install -n pytorch pytorch torchvision cuda80 -c pytorch 如果提前设置了代理，那么这里的-c pytorch可以替换为 -c soumith，这样可以获得最新的pytorch版本。</p>
-<p>如果想从soumith源安装或更新pytorch，需要挂代理。<br>在Pi系统上挂代理的方法：<br>$ export http_proxy=<a href="http://proxy.pi.sjtu.edu.cn:3004/" target="_blank" rel="noopener">http://proxy.pi.sjtu.edu.cn:3004/</a><br>$ export https_proxy=<a href="http://proxy.pi.sjtu.edu.cn:3004/" target="_blank" rel="noopener">http://proxy.pi.sjtu.edu.cn:3004/</a></p>
-<p>更新pytorch的方法：<br>$ conda update -n pytorch pytorch torchvision -c soumith</p>
-
-          
+          <p>2017-09-23<br>1.GPU选购指南<br>    计算能力:32位浮点计算能力<br>    内存大小:至少4G<br>    内存带宽:要足够才能发挥计算能力<br>    机箱要大一点，散热要好，电源负荷要够<br>    个人用户考虑GTX系列，1080ti性价比较高，资金够就Titan Xp，要追求性能等下一代Volta</p>
+<p>2.gluon API<br>    nn.Block主要提供<br>        存储参数<br>        描述forward如何执行<br>        自动求导<br>    super()函数：子类在init的时候先调用父类的init.<br>    延后初始化<br>    自定义层 需要给input的维数<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/08/深度学习笔记/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
